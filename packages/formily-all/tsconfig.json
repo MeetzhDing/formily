@@ -1,0 +1,21 @@
+{
+  "extends": "./config/tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./lib",
+    "skipLibCheck": true,
+    "paths": {
+      "@formily/*": ["packages/*/src", "devtools/*/src"]
+    },
+    "plugins": [
+      {
+        "transform": "./transformer.ts",
+        "after": true
+      }
+    ],
+    "lib": ["ESNext", "DOM"],
+    "composite": true,
+    "rootDir": "src"
+  },
+  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
+  "exclude": ["./esm/*", "./lib/*"]
+}

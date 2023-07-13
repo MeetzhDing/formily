@@ -44,7 +44,7 @@ const presets = () => {
     resolve(),
     commonjs(),
     externalGlobals(externals, {
-      exclude: ['**/*.{less,sass,scss,vue}'],
+      exclude: ['**/*.{less,sass,scss}'],
     }),
   ]
 }
@@ -84,7 +84,7 @@ export const removeImportStyleFromInputFilePlugin = () => ({
   },
 })
 
-export default (filename, targetName, ...plugins) => {
+export default (filename, targetName, external, ...plugins) => {
   const base = [
     {
       input: 'src/index.ts',
@@ -100,7 +100,13 @@ export default (filename, targetName, ...plugins) => {
           '@formily/json-schema': 'Formily.JSONSchema',
         },
       },
-      external: ['react', 'react-dom', 'react-is', '@formily/json-schema'],
+      external: [
+        'react',
+        'react-dom',
+        'react-is',
+        '@formily/json-schema',
+        ...(external || []),
+      ],
       plugins: [...presets(), ...plugins, createEnvPlugin('development')],
     },
     {
@@ -117,7 +123,13 @@ export default (filename, targetName, ...plugins) => {
           '@formily/json-schema': 'Formily.JSONSchema',
         },
       },
-      external: ['react', 'react-dom', 'react-is', '@formily/json-schema'],
+      external: [
+        'react',
+        'react-dom',
+        'react-is',
+        '@formily/json-schema',
+        ...(external || []),
+      ],
       plugins: [
         ...presets(),
         terser(),
