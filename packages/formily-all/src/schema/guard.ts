@@ -1,5 +1,5 @@
-import { RuntimeSchema, VoidSchema } from './runtimeSchema'
+import { RuntimeSchema, VoidSchema } from './runtimeSchema';
 
 export function isVoidSchema(schema: RuntimeSchema): schema is VoidSchema {
-  return schema.type === 'void'
+  return schema.type === 'void';
 }

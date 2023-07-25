@@ -1,2 +1,2 @@
-export * from './formChecker'
-export { checkerBuilder } from './checker'
+export * from './formChecker';
+export { checkerBuilder } from './checker';

@@ -1,3 +1,3 @@
-export * from './reactive'
-export * from './context'
-export * from './checker'
+export * from './reactive';
+export * from './context';
+export * from './checker';

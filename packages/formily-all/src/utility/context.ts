@@ -1,8 +1,9 @@
-import { observable } from '@formily/reactive'
-import { Form, isForm } from '@formily/core'
-import { Queryable } from '../core'
+import { Form, isForm } from '@formily/core';
+import { observable } from '@formily/reactive';
 
-const contextMapStore = new WeakMap<Form, Record<string, { value: any }>>()
+import { Queryable } from '../core';
+
+const contextMapStore = new WeakMap<Form, Record<string, { value: any }>>();
 /**
  * Form全局响应式维护，用于共享全局型 数据/状态/方法
  * 相关讨论：https://github.com/alibaba/formily/discussions/2431
@@ -17,24 +18,25 @@ const contextMapStore = new WeakMap<Form, Record<string, { value: any }>>()
 export function createFormContextFactory<T>(contextName: string) {
   function provide(form: Form, value: T): void {
     if (!contextMapStore.has(form)) {
-      contextMapStore.set(form, {})
+      contextMapStore.set(form, {});
     }
-    const contextMap = contextMapStore.get(form)
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const contextMap = contextMapStore.get(form)!;
 
     if (!contextMap[contextName]) {
-      contextMap[contextName] = observable.ref<T>(value)
+      contextMap[contextName] = observable.ref<T>(value);
     }
-    const contextRef = contextMap[contextName]
+    const contextRef = contextMap[contextName];
 
-    contextRef.value = value
+    contextRef.value = value;
   }
 
   function consume(queryable: Queryable): T {
-    const form = isForm(queryable) ? queryable : queryable.form
+    const form = isForm(queryable) ? queryable : queryable.form;
 
-    const contextRef = contextMapStore.get(form)?.[contextName]
+    const contextRef = contextMapStore.get(form)?.[contextName];
 
-    return contextRef?.value
+    return contextRef?.value;
   }
-  return { provide, consume }
+  return { provide, consume };
 }

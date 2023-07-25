@@ -1,5 +1,5 @@
-import { autorun, untracked } from '@formily/reactive'
-import { GeneralField } from '@formily/core'
+import { GeneralField } from '@formily/core';
+import { autorun, untracked } from '@formily/reactive';
 
 /**
  * 在 x-reactions 中使用，允许在组件初始化时仅注册一次 <br/>
@@ -11,9 +11,9 @@ export function runReactionOnce(fn: (field: GeneralField) => void) {
   function reaction(field: GeneralField) {
     autorun.memo(() => {
       untracked(() => {
-        fn(field)
-      })
-    }, [])
+        fn(field);
+      });
+    }, []);
   }
-  return reaction
+  return reaction;
 }

@@ -4,18 +4,20 @@
     "outDir": "./lib",
     "skipLibCheck": true,
     "paths": {
-      "@formily/*": ["packages/*/src", "devtools/*/src"]
+//      "@formily/*": ["packages/*/src", "devtools/*/src"]
     },
     "plugins": [
       {
-        "transform": "./transformer.ts",
+        "transform": "./config/transformer.ts",
         "after": true
       }
     ],
+    "strictNullChecks": true,
     "lib": ["ESNext", "DOM"],
+    "baseUrl": ".",
     "composite": true,
     "rootDir": "src"
   },
-  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
-  "exclude": ["./esm/*", "./lib/*"]
+  "include": ["./src/**/*.ts", "./src/**/*.tsx", "./.*.js", "./*.js"],
+  "exclude": ["./esm/*", "./lib/*"],
 }

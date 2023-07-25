@@ -20,8 +20,10 @@ export {
   useParentForm,
   // createForm
   createForm as createRawForm,
-} from '@formily/vue'
-export * from '@formily/reactive-vue'
+  createSchemaField as rawCreateSchemaField,
+} from '@formily/vue';
+export * from '@formily/reactive-vue';
 
 // createSchemaField.SchemaField
-export * from './SchemaField'
+export * from './SchemaField';
+export * from './component';

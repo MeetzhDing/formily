@@ -1,5 +1,6 @@
-import { createForm } from '@formily/core'
-import { checkerBuilder, formCheckerBuilder } from '../checker'
+import { createForm } from '@formily/core';
+
+import { checkerBuilder, formCheckerBuilder } from '../checker';
 
 enum Direction {
   Up = 1,
@@ -25,12 +26,12 @@ enum FileAccess {
 
 describe('checkerBuilder', () => {
   interface GlobalState {
-    direction: Direction
-    userResponse: UserResponse
+    direction: Direction;
+    userResponse: UserResponse;
     details: {
-      fileAccess: FileAccess
-    }
-    createTime: Date
+      fileAccess: FileAccess;
+    };
+    createTime: Date;
   }
 
   const TestChecker = checkerBuilder({
@@ -57,19 +58,19 @@ describe('checkerBuilder', () => {
         valueType: null as unknown as Date,
       },
     },
-  })
+  });
 
   it('typescript infer works', () => {
-    const form = createForm()
-    const check = TestChecker(form)
+    const form = createForm();
+    const check = TestChecker(form);
 
-    const a = check.direction.is.Down
-    const b = check.userResponse.not.Yes
-    const c = check.fileAccess.field?.value
-    const d = check.createTime.value
+    const a = check.direction.is.Down;
+    const b = check.userResponse.not.Yes;
+    const c = check.fileAccess.field?.value;
+    const d = check.createTime.value;
 
-    expect(a && b && c && d).toBe(false)
-  })
+    expect(a && b && c && d).toBe(false);
+  });
 
   it('getter works', () => {
     const globalState: GlobalState = {
@@ -79,15 +80,15 @@ describe('checkerBuilder', () => {
         fileAccess: FileAccess.ReadWrite,
       },
       createTime: new Date(),
-    }
-    const check = TestChecker(globalState)
+    };
+    const check = TestChecker(globalState);
 
-    expect(check.direction.is.Down).toBeTruthy()
-    expect(check.userResponse.not.Yes).toBeFalsy()
-    expect(check.fileAccess.field.value).toBe(FileAccess.ReadWrite)
-    expect(check.createTime.field.value).toBe(check.createTime.value)
-  })
-})
+    expect(check.direction.is.Down).toBeTruthy();
+    expect(check.userResponse.not.Yes).toBeFalsy();
+    expect(check.fileAccess.field?.value).toBe(FileAccess.ReadWrite);
+    expect(check.createTime.field?.value).toBe(check.createTime.value);
+  });
+});
 
 describe('formCheckerBuilder', () => {
   const TestChecker = formCheckerBuilder({
@@ -114,45 +115,45 @@ describe('formCheckerBuilder', () => {
         valueType: null as unknown as Date,
       },
     },
-  })
+  });
 
   it('typescript infer works', () => {
-    const form = createForm()
-    const check = TestChecker(form)
+    const form = createForm();
+    const check = TestChecker(form);
 
-    const a = check.direction.is.Down
-    const b = check.userResponse.not.Yes
-    const c = check.fileAccess.field?.value
-    const d = check.createTime.value
-    const f = check.form
+    const a = check.direction.is.Down;
+    const b = check.userResponse.not.Yes;
+    const c = check.fileAccess.field?.value;
+    const d = check.createTime.value;
+    const f = check.form;
 
-    expect(a && b && c && d && f).toBe(false)
-  })
+    expect(a && b && c && d && f).toBe(false);
+  });
 
   it('getter works', () => {
-    const form = createForm()
+    const form = createForm();
     form.createField({
       name: 'direction',
       value: Direction.Down,
-    })
+    });
     form.createField({
       name: 'userResponse',
       value: UserResponse.Yes,
-    })
+    });
     form.createField({
       name: 'details.fileAccess',
       value: FileAccess.ReadWrite,
-    })
+    });
     form.createField({
       name: 'createTime',
       value: new Date(),
-    })
-    const check = TestChecker(form)
+    });
+    const check = TestChecker(form);
 
-    expect(check.direction.is.Down).toBeTruthy()
-    expect(check.userResponse.not.Yes).toBeFalsy()
-    expect(check.fileAccess.field.value).toBe(FileAccess.ReadWrite)
-    expect(check.createTime.field.value).toBe(check.createTime.value)
-    expect(check.form).toBe(form)
-  })
-})
+    expect(check.direction.is.Down).toBeTruthy();
+    expect(check.userResponse.not.Yes).toBeFalsy();
+    expect(check.fileAccess.field?.value).toBe(FileAccess.ReadWrite);
+    expect(check.createTime.field?.value).toBe(check.createTime.value);
+    expect(check.form).toBe(form);
+  });
+});

@@ -1,5 +1,6 @@
-import type { FieldSchema, VoidSchema } from './runtimeSchema'
-import { isVoidSchema } from './guard'
+import { isVoidSchema } from './guard';
+import type { FieldSchema, RuntimeSchema, VoidSchema } from './runtimeSchema';
+import { SchemaTypes } from './runtimeSchema';
 
 /**
  * 声明 Schema 辅助函数
@@ -8,28 +9,17 @@ import { isVoidSchema } from './guard'
  */
 export function defineSchema<
   Value = any,
+  SType extends SchemaTypes = SchemaTypes,
   Decorator = any,
   Component = any,
   DecoratorProps = any,
-  ComponentProps = any
->(
-  schema:
-    | VoidSchema<Decorator, Component, DecoratorProps, ComponentProps>
-    | FieldSchema<Value, Decorator, Component, DecoratorProps, ComponentProps>
-) {
-  if (isVoidSchema(schema)) {
-    return schema as VoidSchema<
-      Decorator,
-      Component,
-      DecoratorProps,
-      ComponentProps
-    >
+  ComponentProps = any,
+  Schema = SType extends 'void' | void | undefined
+    ? VoidSchema<Decorator, Component, DecoratorProps, ComponentProps>
+    : FieldSchema<Value, SType, Decorator, Component, DecoratorProps, ComponentProps>,
+>(schema: { type?: SType; 'x-value'?: Value } & Schema) {
+  if (isVoidSchema(schema as unknown as RuntimeSchema)) {
+    return schema as VoidSchema<Decorator, Component, DecoratorProps, ComponentProps>;
   }
-  return schema as FieldSchema<
-    Value,
-    Decorator,
-    Component,
-    DecoratorProps,
-    ComponentProps
-  >
+  return schema as FieldSchema<Value, SType, Decorator, Component, DecoratorProps, ComponentProps>;
 }

@@ -31,7 +31,7 @@ import {
   onFormValidateStart,
   onFormValidateSuccess,
   onFormValuesChange,
-} from '@formily/core'
+} from '@formily/core';
 
 export const FieldEffects = {
   onFieldInit,
@@ -46,7 +46,7 @@ export const FieldEffects = {
   onFieldValidateEnd,
   onFieldValidateFailed,
   onFieldValidateSuccess,
-}
+};
 
 export const FormEffects = {
   onFormInit,
@@ -69,4 +69,4 @@ export const FormEffects = {
   onFormValidateEnd,
   onFormValidateFailed,
   onFormValidateSuccess,
-}
+};
